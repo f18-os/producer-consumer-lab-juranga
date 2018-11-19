@@ -1,6 +1,6 @@
 # Producer Consumer Lab
 
-In this lab, we were required to run three concurrent threads that convert frames to greyscale before displaying them to the user in a video format.
+In this lab, we were required to run three concurrent threads that convert frames to grayscale before displaying them to the user in a video format.
 
 ## Files located within:
 
