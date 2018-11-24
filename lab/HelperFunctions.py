@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-
 import cv2
 import threading
 import numpy as np
 import base64
 import time
-import queue
+from queue import Queue
 
 def toGrayscale(inputFrame=None, outputBuffer=None):
     if inputFrame is not None:

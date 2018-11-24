@@ -1,9 +1,9 @@
 import socket, sys, re, os
 import threading
 import cv2
+from queue import Queue
 import time
-import queue
-from threading import Thread
+from threading import Thread, Lock
 from HelperFunctions import *
 
 # Creates Thread that Extracts video frames and feeds them to a Queue shared with Greyscale Thread
@@ -66,9 +66,10 @@ class ConsumerGrayScaleThread(Thread):
         finished2 = True
         return
 
-sharedQueue1 = queue.Queue(10)
-sharedQueue2 = queue.Queue(10)
 global finished; global finished2
+lock = Lock()
+sharedQueue1 = Queue(10, lock)
+sharedQueue2 = Queue(10, lock)
 finished = False; finished2 = False
 extractor = ProducerExtractorThread(sharedQueue1)
 displayer =  ConsumerDisplayThread(sharedQueue2)
