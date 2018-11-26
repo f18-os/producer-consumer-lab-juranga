@@ -4,7 +4,7 @@ import threading
 import numpy as np
 import base64
 import time
-from queue import Queue
+from queue import Q
 
 def toGrayscale(inputFrame=None, outputBuffer=None):
     if inputFrame is not None:
@@ -13,7 +13,7 @@ def toGrayscale(inputFrame=None, outputBuffer=None):
         while outputBuffer.full():
             time.sleep(0.0001)
 
-def extractFrames(fileName, outputBuffer, vidcap, success=True):
+def extractFrames(outputBuffer, vidcap, success=True):
     while success:
         success,image = vidcap.read()
         outputBuffer.put(image)

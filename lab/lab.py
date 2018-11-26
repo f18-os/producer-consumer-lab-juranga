@@ -1,7 +1,7 @@
 import socket, sys, re, os
 import threading
 import cv2
-from queue import Queue
+from queue import Q
 import time
 from threading import Thread, Lock
 from HelperFunctions import *
@@ -18,7 +18,7 @@ class ProducerExtractorThread(Thread):
 
     def run(self):
         global finished
-        finished = extractFrames('clip.mp4', ProducerExtractorThread.imageQ, ProducerExtractorThread.vidcap, success=True)
+        finished = extractFrames(ProducerExtractorThread.imageQ, ProducerExtractorThread.vidcap, success=True)
         return
 
 class ConsumerDisplayThread(Thread):
@@ -68,8 +68,9 @@ class ConsumerGrayScaleThread(Thread):
 
 global finished; global finished2
 lock = Lock()
-sharedQueue1 = Queue(10, lock)
-sharedQueue2 = Queue(10, lock)
+lock2 = Lock()
+sharedQueue1 = Q(10, lock)
+sharedQueue2 = Q(10, lock2)
 finished = False; finished2 = False
 extractor = ProducerExtractorThread(sharedQueue1)
 displayer =  ConsumerDisplayThread(sharedQueue2)

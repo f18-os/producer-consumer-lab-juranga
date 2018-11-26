@@ -1,4 +1,4 @@
-class Queue:
+class Q:
     def __init__(self, size, lock):
         self.a = []
         self.lock = lock
